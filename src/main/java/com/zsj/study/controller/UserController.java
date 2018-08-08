@@ -4,10 +4,7 @@ import com.zsj.study.model.User;
 import com.zsj.study.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * created by zsj in 21:11 2018/8/8
@@ -37,6 +34,12 @@ public class UserController {
     @ResponseBody
     public String getUserByEmail(String email) {
         return userService.getUserByEmail(email).toString();
+    }
+
+    @GetMapping(value = "/user")
+    @ResponseBody
+    public String getUserByName2(@RequestHeader String name) {
+        return userService.getUserByName(name).toString();
     }
 
 }
