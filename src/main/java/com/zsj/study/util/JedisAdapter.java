@@ -6,6 +6,9 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Service;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -57,6 +60,41 @@ public class JedisAdapter implements InitializingBean{
             return null;
         }
         finally {
+            if (jedis != null) {
+                jedis.close();
+            }
+        }
+    }
+
+    //--------------------list
+    public Map<String, String> listPush(String listName, String value) {
+        Jedis jedis = null;
+        Map<String, String> res = new HashMap<>();
+        try {
+            jedis = jedisPool.getResource();
+            jedis.lpush(listName, value);
+            res.put(listName, value);
+            return res;
+        }catch (Exception e) {
+            logger.error("list插入失败" + e);
+            return res;
+        }
+        finally {
+            if (jedis != null) {
+                jedis.close();
+            }
+        }
+    }
+
+    public List<String> getListValue(String listName) {
+        Jedis jedis = null;
+        try {
+            jedis = jedisPool.getResource();
+            return jedis.lrange(listName, 0, Integer.MAX_VALUE);
+        }catch (Exception e) {
+            logger.error("list读取失败" + e);
+            return null;
+        }finally {
             if (jedis != null) {
                 jedis.close();
             }
