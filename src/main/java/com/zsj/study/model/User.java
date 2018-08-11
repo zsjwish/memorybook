@@ -16,17 +16,14 @@ import java.util.Date;
 @Entity
 @Value
 public class User {
-
     @Id
     @GeneratedValue
     private long id;
 
     @Column(name = "name")
-    @NonNull
     private String name;
 
     @Column(name = "password")
-    @NonNull
     private String password;
 
     @Column(name = "salt")
@@ -52,4 +49,5 @@ public class User {
 
     @Column(name = "last_login_date")
     private Date lastLoginDate;
+
 }
