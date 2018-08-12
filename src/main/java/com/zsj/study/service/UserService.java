@@ -1,7 +1,6 @@
 package com.zsj.study.service;
 
 import com.zsj.study.dao.UserDao;
-import com.zsj.study.model.LoginTicket;
 import com.zsj.study.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,9 +14,6 @@ public class UserService {
 
     @Autowired
     UserDao userDao;
-
-    @Autowired
-    LoginTicket loginTicket;
 
     public String addUser(User user) {
         userDao.save(user);
